@@ -7,7 +7,7 @@ import "./socket.js";
 
 import { loadRoutes } from "./handlers/routes.js";
 import { loadSockets } from "./handlers/sockets.js";
-import { getLocalIp } from "./handlers/ip.js";
+import { getLocalIp } from "./middleware/ip.js";
 
 // Run handlers
 dbConnect(process.env.MONGO_URI);

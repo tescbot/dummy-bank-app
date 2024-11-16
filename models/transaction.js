@@ -5,12 +5,12 @@ import { Account } from "./account.js";
 const transactionSchema = new Schema(
   {
     senderAccountId: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: "Account",
       required: true,
     },
     recipientAccountId: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: "Account",
       required: true,
     },

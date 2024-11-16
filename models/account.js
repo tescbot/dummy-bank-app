@@ -8,6 +8,7 @@ const accountSchema = new Schema({
   _id: { type: String, default: digits(16) },
   sortCode: { type: String, default: digits(6) },
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  money: { type: Schema.Types.Decimal128, default: 0 },
 });
 
 accountSchema.methods.getUser = function () {
