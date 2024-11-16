@@ -1,12 +1,13 @@
 import express from "express";
 import { User } from "../models/user.js"
+import { authWithSession } from "../middleware/requestHandlers.js"
 import pkg from "express-openid-connect";
 const { requiresAuth } = pkg;
 
 export const path = "/";
 export const router = express.Router();
 
-router.get("/", requiresAuth(), async (req, res) => {
+router.get("/", authWithSession(), async (req, res) => {
   let details = req.oidc.user;
   req.session.userInfo = req.oidc.user
   if (await User.exists({email: details.email})) {

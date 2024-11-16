@@ -1,16 +1,17 @@
 import express from "express";
 import { Account } from "../models/account.js";
+import { authWithSession } from "../middleware/requestHandlers.js"
 import pkg from "express-openid-connect";
 const { requiresAuth } = pkg;
 
 export const path = "/add-account";
 export const router = express.Router();
 
-router.get("/", requiresAuth(),(req, res) => {
+router.get("/", authWithSession(),(req, res) => {
         res.render("addAccount");
 });
 
-router.post("/", requiresAuth(), async (req, res) =>{
+router.post("/", authWithSession(), async (req, res) =>{
     let accountName = req.body.accountName;
     console.log(req.session.userInfo);
 

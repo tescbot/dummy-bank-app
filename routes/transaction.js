@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
 
   res.render("confirmation", {
     recipient: name,
-    accNumber: recipientAccount,
+    accNumber: recipientAccountNumber,
     sortCode: recipientSortCode,
     amountSent: amount,
     reference: ref,
