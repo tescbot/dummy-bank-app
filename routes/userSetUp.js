@@ -1,5 +1,6 @@
 import express from "express";
 import { User } from "../models/user.js";
+import { Account } from "../models/account.js";
 
 export const path = "/user-set-up";
 export const router = express.Router();
@@ -38,22 +39,19 @@ router.post("/", async (req, res) => {
     });
     console.log(newUser);
     req.session.userInfo = newUser;
+
+    // create account
+    let newAccount = await Account.create({
+        userId: req.session.userInfo._id,
+        accountName: "Current"
+    })
+    req.session.userAccount = newAccount;
     res.redirect("/dashboard")
 });
 
-
-// const userSchema = new Schema({
-//     fullName: { type: String, required: true },
-//     email: { type: String, required: true },
-//     dateOfBirth: { type: Date, required: true },
-//     phoneNumber: { type: String, required: true },
-//     address: {
-//       _id: false,
-//       line1: { type: String, required: true },
-//       line2: String,
-//       city: String,
-//       county: String,
-//       postCode: { type: String, required: true },
-//       country: { type: String, required: true },
-//     },
+// const accountSchema = new Schema({
+//     _id: { type: String, default: digits(16) },
+//     sortCode: { type: String, default: digits(6) },
+//     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+//     money: { type: Schema.Types.Decimal128, default: 0 },
 //   });
