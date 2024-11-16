@@ -15,14 +15,12 @@ router.get("/", (req, res) => {
 router.get("/loggedIn", async (req, res) => {
   if(req.oidc.isAuthenticated()){
     let details = req.oidc.user;
-    console.log(details.email);
     req.session.userInfo = req.oidc.user
     if (await User.exists({email: details.email})) {
       res.redirect("/dashboard");
     } else {
       res.redirect("/user-set-up")
     }
-    // res.render("loggedIn", {info: req.oidc.user});
   }else{
     res.redirect("/");
   }
