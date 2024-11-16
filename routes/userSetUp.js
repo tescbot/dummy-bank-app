@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
     // create account
     let newAccount = await Account.create({
         userId: req.session.userInfo._id,
-        accountName: "Current"
+        name: "Current"
     })
     req.session.userAccount = newAccount;
     res.redirect("/dashboard")
