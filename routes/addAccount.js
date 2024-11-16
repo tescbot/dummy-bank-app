@@ -18,6 +18,7 @@ router.post("/", requiresAuth(), async (req, res) =>{
 
     if(accountExists){
         res.render("addAccount", {msg: "Sorry you seem to already have an account with that name"});
+        return;
     }
     
     await Account.create({
