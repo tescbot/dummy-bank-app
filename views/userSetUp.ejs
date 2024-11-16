@@ -1,22 +1,30 @@
-<div>
-    <form>
+<div class="form-group container-md">
+    <form method="post" action="/user-set-up">
         <strong>Enter Full Name</strong>
-        <input type="text" maxlength="50" name="fullName">
+        <input class="form-control" type="text" maxlength="50" name="fullName" required>
 
-        <strong>Enter Your Birthday</strong>
-        <input type="date" name="birthday">
+        <strong>Enter Your Date of Birth</strong>
+        <input class="form-control" type="date" name="dateOfBirth" required>
 
         <strong>Enter Your Phonenumber</strong>
-        <input type="text" name="mobileNumber">
+        <input class="form-control" type="text" name="phoneNumber" required>
 
         <strong>Enter Your Address</strong>
-        <input type="text" name="addressLine1" placeholder="address line 1">
-        <input type="text" name="addressLine2" placeholder="address line 2">
+        <input class="form-control" type="text" name="addressLine1" placeholder="address line 1" required>
+        <input class="form-control" type="text" name="addressLine2" placeholder="address line 2">
 
         <strong>Enter Your City</strong>
-        <input type="text" name="city">
+        <input class="form-control" type="text" name="city">
+
+        <strong>Enter Your County</strong>
+        <input class="form-control" type="text" name="county">
 
         <strong>Enter Your Post Code</strong>
-        <input type="text" name="postCode">
+        <input class="form-control" type="text" name="postCode" required>
+
+        <strong>Enter Your Country</strong>
+        <input class="form-control" type="text" name="country" required>
+
+        <input class="btn btn-primary" type="submit" value="Finish">
     </form>
 </div>
