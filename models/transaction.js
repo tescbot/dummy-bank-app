@@ -1,5 +1,4 @@
 import { model, Schema } from "mongoose";
-import { User } from "./user.js";
 import { Account } from "./account.js";
 
 const transactionSchema = new Schema(

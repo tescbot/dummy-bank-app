@@ -1,15 +1,14 @@
 import express from "express";
-import auth0 from "express-openid-connect";
 
+import { authWithSession } from "../middleware/requestHandlers.js";
 import { Account } from "../models/account.js";
-import { User } from "../models/user.js";
 import { Transaction } from "../models/transaction.js";
 
 export const path = "/dashboard";
 export const router = express.Router();
 
-router.get("/", auth0.requiresAuth(), async (req, res) => {
-  const user = await User.findOne({ email: req.oidc.user.email });
+router.get("/", authWithSession(), async (req, res) => {
+  const user = req.session.userInfo;
   const accounts = await Account.find({ userId: user._id });
 
   let transactions = {};
