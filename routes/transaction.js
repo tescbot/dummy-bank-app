@@ -1,42 +1,62 @@
 import express from "express";
 import { User } from "../models/user.js";
 import { Transaction } from "../models/transaction.js";
+import { Account } from "../models/account.js";
 
 export const path = "/transaction";
 export const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.render("transactionForm");
+router.get("/:sortCode/:accountNumber", (req, res) => {
+  res.render("transactionForm", {sourceSortCode: req.params.sortCode,
+     sourceAccountNumber: req.params.accountNumber});
 });
 
 router.post("/", async (req, res) => {
   let name = req.body.fullName;
-  let accountNumber = req.body.accountNumber;
-  let sortCode = req.body.sortCode;
-  let amount = req.body.amount;
-  let ref = req.body.amount;
+  let recipientAccountNumber = req.body.accountNumber;
+  let recipientSortCode = req.body.sortCode;
+  let amount = new Number(req.body.amount);
+  let ref = req.body.reference;
 
-  let currUser = await User.findOne({ email: req.session.userInfo.email });
-  let currUserAccount = await currUser.getAccounts()[0];
-  let recipientAccount = await Account.findById(accountNumber);
+  let currUserSortCode = req.body.sourceSortCode;
+  let currUserAccountNumber = req.body.sourceAccountNumber;
+
+  console.log(currUserAccountNumber);
+  console.log(currUserSortCode);
+
+  let currUserAccount = await Account.findOne({sortCode: currUserSortCode,
+    _id: currUserAccountNumber})
+  let recipientAccount = await Account.findOne({sortCode: recipientSortCode,
+    _id: recipientAccountNumber});
+
+  console.log(currUserAccount);
+  console.log(recipientAccount);
 
   currUserAccount.money -= amount;
   recipientAccount.money += amount;
 
-  Transaction.create({
+  console.log(recipientAccount);
+
+  if(!ref){
+    ref = "";
+  }
+
+  await Transaction.create({
     senderAccountId: currUserAccount._id,
     recipientAccountId: recipientAccount._id,
     reference: ref,
-    amount,
+    amountSent: amount
   });
 
-  currUserAccount.save();
-  recipientAccount.save();
+  console.log(recipientAccount);
+
+  await currUserAccount.save();
+  await recipientAccount.save();
 
   res.render("confirmation", {
     recipient: name,
-    accNumber: accountNumber,
-    sortCode: sortCode,
+    accNumber: recipientAccount,
+    sortCode: recipientSortCode,
     amountSent: amount,
     reference: ref,
   });

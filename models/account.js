@@ -9,7 +9,7 @@ const accountSchema = new Schema({
   name: { type: String, required: true, unique: true },
   sortCode: { type: String, default: "999999" },
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  money: { type: Schema.Types.Decimal128, default: 0 },
+  money: { type: Number, default: 0 },
 });
 
 accountSchema.methods.getUser = function () {

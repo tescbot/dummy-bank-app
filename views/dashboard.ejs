@@ -17,7 +17,10 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %>
             ><%- account.sortCode.match(/.{1,2}/g).join("-") %></span
           >
         </div>
-        <h1>£<%- moneyFormatter.format(account.money) %></h1>
+        <div>
+          <h1>£<%- moneyFormatter.format(account.money) %></h1>
+          <a class="btn btn-primary" href="/transaction/<%-account.sortCode%>/<%-account._id%>">move money</a>
+        </div>
       </div>
       <div class="flex-grow-1 border w-100">
         <table class="w-100 table table-striped">
