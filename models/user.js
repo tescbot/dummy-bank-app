@@ -3,9 +3,9 @@ import { Account } from "./account.js";
 
 const userSchema = new Schema({
   fullName: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   dateOfBirth: { type: Date, required: true },
-  phoneNumber: { type: String, required: true },
+  phoneNumber: { type: String, required: true, unique: true },
   address: {
     _id: false,
     line1: { type: String, required: true },

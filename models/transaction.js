@@ -28,4 +28,4 @@ transactionSchema.methods.getRecipientAccount = function () {
   return Account.findById(this.recipientAccountId);
 };
 
-export const Transcation = model("Transcation", transactionSchema);
+export const Transaction = model("Transcation", transactionSchema);
