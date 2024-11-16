@@ -23,7 +23,7 @@ router.get("/", auth0.requiresAuth(), async (req, res) => {
       transactions[acc._id].push({
         sender: await Account.findById(t.senderAccountId),
         recipient: await Account.findById(t.recipientAccountId),
-        amountSent: 400,
+        amountSent: t.amountSent,
         reference: t.reference,
       });
     }
