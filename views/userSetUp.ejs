@@ -1,32 +1,32 @@
-<div class="form-group container-md">
+<div class="form-group container-md border border-dark rounded m-3 p-3 mx-auto">
     <form method="post" action="/user-set-up">
         <strong>Enter Full Name</strong>
-        <input class="form-control" type="text" maxlength="50" name="fullName" required>
+        <input class="form-control mb-2" type="text" maxlength="50" name="fullName" required>
 
         <strong>Enter Your Date of Birth</strong>
         <% let adultDate = new Date() %>
         <% adultDate.setFullYear(adultDate.getFullYear() - 18) %>
-        <input class="form-control" type="date" name="dateOfBirth" 
+        <input class="form-control mb-2" type="date" name="dateOfBirth" 
                     max="<%- adultDate.toISOString().split('T')[0]%>" required>
 
         <strong>Enter Your Phonenumber</strong>
-        <input class="form-control" type="text" name="phoneNumber" required>
+        <input class="form-control mb-2" type="text" name="phoneNumber" required>
 
         <strong>Enter Your Address</strong>
-        <input class="form-control" type="text" name="addressLine1" placeholder="address line 1" required>
-        <input class="form-control" type="text" name="addressLine2" placeholder="address line 2">
+        <input class="form-control mb-2" type="text" name="addressLine1" placeholder="address line 1" required>
+        <input class="form-control mb-2" type="text" name="addressLine2" placeholder="address line 2">
 
         <strong>Enter Your City</strong>
-        <input class="form-control" type="text" name="city">
+        <input class="form-control mb-2" type="text" name="city">
 
         <strong>Enter Your County / Province</strong>
-        <input class="form-control" type="text" name="county">
+        <input class="form-control mb-2" type="text" name="county">
 
         <strong>Enter Your Post Code / Zip Code</strong>
-        <input class="form-control" type="text" name="postCode" required>
+        <input class="form-control mb-2" type="text" name="postCode" required>
 
         <strong>Enter Your Country</strong>
-        <input class="form-control" type="text" name="country" required>
+        <input class="form-control mb-2" type="text" name="country" required>
 
         <input class="btn btn-primary" type="submit" value="Finish">
     </form>

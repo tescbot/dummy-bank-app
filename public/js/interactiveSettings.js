@@ -9,13 +9,13 @@ editButton.addEventListener("click", (event) => {
     event.preventDefault();
     editButton.style.display = "none";
     for (let dataDisplay of dataDisplays) dataDisplay.style.display = "none";
-    submitButton.style.display = "block";
+    submitButton.style.display = "inline-block";
     for (let input of inputs) input.style.display = "block"; 
 })
 
 submitButton.addEventListener("click", () => {
     editButton.style.display = "block";
     for (let dataDisplay of dataDisplays) dataDisplay.style.display = "block";
-    submitButton.style.display = "none";
+    submitButton.style.display = "inline-block";
     for (let input of inputs) input.style.display = "none"; 
 })
