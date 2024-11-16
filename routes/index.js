@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
   if(req.oidc.isAuthenticated()){
     res.redirect("/loggedIn");
   }else{
-    res.render("notLoggedIn");
+    res.redirect("/login")
   }
 });
 

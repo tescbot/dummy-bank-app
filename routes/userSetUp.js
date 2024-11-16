@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
         address: address
     });
     console.log(newUser);
-    req.session.userInfo = newUser
+    req.session.userInfo = newUser;
     res.redirect("/dashboard")
 });
 
