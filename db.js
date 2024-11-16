@@ -9,10 +9,7 @@ mongoose.set("strictQuery", true);
  */
 export async function dbConnect(mongoUri) {
   try {
-    await mongoose.connect(mongoUri, {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    });
+    await mongoose.connect(mongoUri);
   } catch (err) {
     console.error(err);
   }
