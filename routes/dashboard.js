@@ -8,7 +8,7 @@ export const path = "/dashboard";
 export const router = express.Router();
 
 router.get("/", authWithSession(), async (req, res) => {
-  const user = req.session.user;
+  const user = req.session.userInfo;
   const accounts = await Account.find({ userId: user._id });
 
   let transactions = {};
