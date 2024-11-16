@@ -8,9 +8,13 @@ mongoose.set("strictQuery", true);
  * @param {String} mongoUri
  */
 export async function dbConnect(mongoUri) {
-  await mongoose.connect(mongoUri, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  });
+  try {
+    await mongoose.connect(mongoUri, {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    });
+  } catch (err) {
+    console.error(err);
+  }
   console.log(chalk.green("Connected to MongoDB!"));
 }
