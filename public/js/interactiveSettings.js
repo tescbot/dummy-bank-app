@@ -2,20 +2,18 @@ const editButton = document.getElementById("toggleForm");
 const submitButton = document.getElementById("updateDetails");
 const dataDisplays = document.getElementsByClassName("data-display");
 const inputs = document.getElementsByClassName("form-control");
-for (let input of inputs) input.style.display = "none";
-submitButton.style.display = "none";
 
 editButton.addEventListener("click", (event) => {
     event.preventDefault();
-    editButton.style.display = "none";
-    for (let dataDisplay of dataDisplays) dataDisplay.style.display = "none";
-    submitButton.style.display = "inline-block";
-    for (let input of inputs) input.style.display = "block"; 
+    editButton.classList.add("hide");
+    submitButton.classList.remove("hide");
+    for (let dataDisplay of dataDisplays) dataDisplay.classList.add("hide");
+    for (let input of inputs) input.classList.remove("hide"); 
 })
 
 submitButton.addEventListener("click", () => {
-    editButton.style.display = "block";
-    for (let dataDisplay of dataDisplays) dataDisplay.style.display = "block";
-    submitButton.style.display = "inline-block";
-    for (let input of inputs) input.style.display = "none"; 
+    editButton.classList.remove("hide");
+    submitButton.classList.add("hide");
+    for (let dataDisplay of dataDisplays) dataDisplay.classList.remove("hide");
+    for (let input of inputs) input.classList.add("hide"); 
 })

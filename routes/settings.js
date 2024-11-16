@@ -15,13 +15,10 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    console.log("heyyyyyyyy");
     if(!req.oidc.isAuthenticated()){
         res.redirect("/login");
     }else{
         let email = req.body.email;
-        console.log("EMAILLLLL");
-        console.log(email);
         let phoneNumber = req.body.phoneNumber;
         let address = {
             line1: req.body.addressLine1,
@@ -31,8 +28,14 @@ router.post("/", async (req, res) => {
             postCode: req.body.postCode,
             country: req.body.country
         }
-        console.log("heyyyyyyyy");
-        console.log(req.body);
+        //validation
+        // if (email != session.userInfo.email) {
+        //     validate()
+        // }
+        // let checkEmailChange = await User.find({email: email}); 
+        // let checkNumberChange 
+
+        errors.yes = "bravo";
         let oldUser = await User.findById(req.session.userInfo._id);
         oldUser.email = email;
         oldUser.phoneNumber = phoneNumber;
@@ -42,3 +45,7 @@ router.post("/", async (req, res) => {
         res.render("settings", {title: "Settings", userInfo: req.session.userInfo});
     }
 });
+
+// function validate(field, userDetails) {
+
+// }
