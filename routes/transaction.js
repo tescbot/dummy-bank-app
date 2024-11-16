@@ -8,7 +8,7 @@ export const router = express.Router();
 
 router.get("/:sortCode/:accountNumber", (req, res) => {
   res.render("transactionForm", {sourceSortCode: req.params.sortCode,
-     sourceAccountNumber: req.params.accountNumber});
+     sourceAccountNumber: req.params.accountNumber, title: "Move money"});
 });
 
 router.post("/", async (req, res) => {
