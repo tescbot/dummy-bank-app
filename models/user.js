@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { Account } from "./account";
 
 const userSchema = new Schema({
   fullName: { type: String, required: true },
@@ -15,5 +16,9 @@ const userSchema = new Schema({
     country: { type: String, required: true },
   },
 });
+
+userSchema.methods.getAccounts = function () {
+  return Account.find({ user: this._id });
+};
 
 export const User = model("User", userSchema);
