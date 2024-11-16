@@ -11,7 +11,7 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %>
     <div class="flex-grow-1 d-flex flex-column">
       <div class="p-3 bg-light border">
         <div class="d-inline-flex gap-3 justify-content-between">
-          <strong>account.name</strong>
+          <strong><%- account.name %></strong>
           <span class="text-muted"><%- account._id %></span>
           <span class="text-muted"
             ><%- account.sortCode.match(/.{1,2}/g).join("-") %></span
@@ -19,8 +19,26 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %>
         </div>
         <h1>£<%- moneyFormatter.format(account.money) %></h1>
       </div>
-      <div class="flex-grow-1 border p-3">
-        <h1 class="h3">Transactions</h1>
+      <div class="flex-grow-1 border w-100">
+        <table class="w-100 table table-striped">
+          <% for (const transaction of transactions[account._id]) { %>
+          <tr>
+            <% if (transaction.sender._id == account._id) { %>
+            <td><%- transaction.recipient.name %></td>
+            <td class="text-muted"><%- transaction.reference %></td>
+            <td class="text-danger">
+              - £<%- moneyFormatter.format(transaction.amountSent) %>
+            </td>
+            <% } else { %>
+            <td><%- transaction.sender.name %></td>
+            <td class="text-muted"><%- transaction.reference %></td>
+            <td class="text-success">
+              + £<%- moneyFormatter.format(transaction.amountSent) %>
+            </td>
+            <% } %>
+          </tr>
+          <% } %>
+        </table>
       </div>
     </div>
     <% } %>
