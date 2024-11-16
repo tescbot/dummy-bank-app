@@ -1,5 +1,6 @@
 import express from "express";
 import { User } from "../models/user.js";
+import { Account } from "../models/account.js";
 
 export const path = "/user-set-up";
 export const router = express.Router();
@@ -38,5 +39,12 @@ router.post("/", async (req, res) => {
     });
     console.log(newUser);
     req.session.userInfo = newUser;
+
+    // create account
+    let newAccount = await Account.create({
+        userId: req.session.userInfo._id,
+        name: "Current"
+    })
+    req.session.userAccount = newAccount;
     res.redirect("/dashboard")
 });

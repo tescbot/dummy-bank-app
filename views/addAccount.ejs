@@ -1,0 +1,12 @@
+<div class="form-group container-md">
+    <% if(typeof msg !== 'undefined'){ %>
+        <h1> <%- msg %> </h1>
+    <% } %> 
+    <form method="post" action="/add-account">
+        <strong>Account Name: </strong>
+        <input class="form-control" type="text" maxlength="50" name="accountName" placeholder="Account name" required>
+
+        <input class="btn btn-primary" type="submit" value="Add account">
+        <a class="btn btn-primary" href="/dashboard">Dashboard</a>
+    </form>
+</div>
