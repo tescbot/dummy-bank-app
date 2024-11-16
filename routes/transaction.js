@@ -15,8 +15,8 @@ router.post("/", async (req, res) => {
     let amount = req.body.amount;
     let ref = req.body.amount;
 
-    let currUser = await User.findOne({email: req.session.userInfo.email});
-    let currUserAccount = await 
-    let recipient = await User.findOne({email: })
+    // let currUser = await User.findOne({email: req.session.userInfo.email});
+    // let currUserAccount = await 
+    // let recipient = await User.findOne({email: })
 })
 
