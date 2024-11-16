@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { Account } from "./account";
+import { Account } from "./account.js";
 
 const userSchema = new Schema({
   fullName: { type: String, required: true },
