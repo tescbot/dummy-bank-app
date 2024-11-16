@@ -17,6 +17,7 @@ router.get("/loggedIn", async (req, res) => {
     let details = req.oidc.user;
     req.session.userInfo = req.oidc.user
     if (await User.exists({email: details.email})) {
+      req.session.userInfo = await User.findOne({email: details.email});
       res.redirect("/dashboard");
     } else {
       res.redirect("/user-set-up")
