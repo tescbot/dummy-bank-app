@@ -12,5 +12,7 @@ loadSockets("./sockets");
 // Start server
 const PORT = 8080;
 server.listen(PORT, () => {
-  console.log(`Listening on http://${getLocalIp()}:${PORT}`);
+  console.log(
+    `Listening on:\nhttp://localhost:${PORT}/\nhttp://${getLocalIp()}:${PORT}`
+  );
 });
