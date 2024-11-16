@@ -1,20 +1,28 @@
-<nav>
-    <a href="/dashboard"><img src="/images/logo.jpg" alt="logo"></a>
-</nav>
+<% const moneyFormatter = new Intl.NumberFormat('en-UK', {
+minimumFractionDigits: 2, maximumFractionDigits: 2 }); %>
 
-<h1>My Account</h1>
-<div>
-    <h2>Balance</h2>
-</div>
-<div>
-    <a href="/settings"">Settings</a>
-    <a href="/add-account">Add another account</a>
-</div>
-<div>
-    <h2>Transaction History</h2>
-    <ul>
-        <ul>
-            <li>+£10.00</li>
-        </ul>
-    </ul>
+<div class="d-flex min-vh-100 min-vw-100 flex-column">
+  <%- include("partials/navbar.ejs") %>
+  <main
+    class="flex-grow-1 min-vw-100 d-flex align-items-stretch"
+    style="overflow-x: auto"
+  >
+    <% for (const account of accounts) { %>
+    <div class="flex-grow-1 d-flex flex-column">
+      <div class="p-3 bg-light border">
+        <div class="d-inline-flex gap-3 justify-content-between">
+          <strong>account.name</strong>
+          <span class="text-muted"><%- account._id %></span>
+          <span class="text-muted"
+            ><%- account.sortCode.match(/.{1,2}/g).join("-") %></span
+          >
+        </div>
+        <h1>£<%- moneyFormatter.format(account.money) %></h1>
+      </div>
+      <div class="flex-grow-1 border p-3">
+        <h1 class="h3">Transactions</h1>
+      </div>
+    </div>
+    <% } %>
+  </main>
 </div>
