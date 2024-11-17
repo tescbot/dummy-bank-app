@@ -1,14 +1,32 @@
 <%- include("partials/navbar.ejs") %>
 
 <div class="form-group container-md">
-    <% if(typeof msg !== 'undefined'){ %>
-        <h1> <%- msg %> </h1>
-    <% } %> 
-    <form method="post" action="/add-account">
-        <strong class="mt-2 d-block">Account Name: </strong>
-        <input class="form-control p-2 mb-2" type="text" maxlength="50" name="accountName" placeholder="Account name" required>
+  <% if (locals.msg) { %>
+  <h1><%- msg %></h1>
+  <% } %>
+  <form method="post" action="/add-account">
+    <strong class="mt-2 d-block">Account Name: </strong>
+    <input
+      class="form-control p-2 mb-2"
+      type="text"
+      maxlength="50"
+      name="accountName"
+      placeholder="Account name"
+      required
+    />
 
-        <input class="btn btn-primary" type="submit" value="Add account">
-        <a class="btn btn-secondary" href="/dashboard">Dashboard</a>
-    </form>
+    <select class="form-select" name="accountType" required>
+      <% for (const [name, acc] of Object.entries(accountTypes)) { %>
+      <option value="<%- name %>">
+        <%- acc.name %> 
+        <% if (acc.interest) { %> 
+          (<%- ((acc.interest.apr - 1) * 100).toFixed(1) %>% APR)
+        <% } %>
+      </option>
+      <% } %>
+    </select>
+
+    <input class="btn btn-primary" type="submit" value="Add account" />
+    <a class="btn btn-secondary" href="/dashboard">Dashboard</a>
+  </form>
 </div>

@@ -22,8 +22,7 @@ router.get("/", authWithSession(), async (req, res) => {
       transactions[acc._id].push({
         sender: await Account.findById(t.senderAccountId),
         recipient: await Account.findById(t.recipientAccountId),
-        amountSent: t.amountSent,
-        reference: t.reference,
+        ...t._doc,
       });
     }
   }
