@@ -41,25 +41,25 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %> <% const dateFormatter
           <% for (const transaction of transactions[account._id].reverse()) { %>
           <tr>
             <% if (transaction.sender._id == account._id) { %>
-            <!-- <td class="text-muted">
+            <td class="text-muted" style="white-space: nowrap">
               <%- dateFormatter.format(transaction.createdAt) %>
-            </td> -->
+            </td>
             <td><%- transaction.recipient.name %></td>
             <td class="text-muted" style="white-space: nowrap">
               <%- transaction.reference %>
             </td>
-            <td class="text-danger">
+            <td class="text-danger" style="white-space: nowrap">
               - £<%- moneyFormatter.format(transaction.amountSent) %>
             </td>
             <% } else { %>
-            <!-- <td class="text-muted">
+            <td class="text-muted" style="white-space: nowrap">
               <%- dateFormatter.format(transaction.createdAt) %>
-            </td> -->
+            </td>
             <td><%- transaction.sender.name %></td>
             <td class="text-muted" style="white-space: nowrap">
               <%- transaction.reference %>
             </td>
-            <td class="text-success">
+            <td class="text-success" style="white-space: nowrap">
               + £<%- moneyFormatter.format(transaction.amountSent) %>
             </td>
             <% } %>
