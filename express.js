@@ -7,14 +7,16 @@ import Session from "express-session";
 import * as crypto from "crypto";
 
 const config = {
-    authRequired: false,
-    auth0Logout: true,
-    secret: process.env.SECRET,
-    baseURL: process.env.BASEURL,
-    clientID: process.env.CLIENTID,
-    issuerBaseURL: process.env.ISSUER
-  };
-
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.SECRET,
+  baseURL:
+    process.env.ENVIRONMENT === "production"
+      ? "https://dummy-bank-app.fly.dev"
+      : "http://localhost:8080/",
+  clientID: process.env.CLIENTID,
+  issuerBaseURL: process.env.ISSUER,
+};
 
 import { createServer } from "http";
 
@@ -25,11 +27,11 @@ export const server = createServer(app);
 // For Sessions
 const secret = crypto.randomBytes(64).toString("hex");
 app.use(
-    Session({
-        secret: secret,
-        resave: true,
-        saveUninitialized: true
-    })
+  Session({
+    secret: secret,
+    resave: true,
+    saveUninitialized: true,
+  })
 );
 
 // Setup view engine
@@ -47,5 +49,3 @@ app.use(auth(config));
 
 // Setup static routes
 app.use(express.static("./public"));
-
-
