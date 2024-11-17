@@ -1,6 +1,7 @@
 import express from "express";
 import { User } from "../models/user.js";
 import { Account } from "../models/account.js";
+import { validate } from "../middleware/backupValidate.js"
 
 export const path = "/user-set-up";
 export const router = express.Router();
@@ -9,7 +10,7 @@ router.get("/", (req, res) => {
     if(!req.oidc.isAuthenticated()){
         res.redirect("/login")
     }else{
-        res.render("userSetUp", {title: "User Set Up" });
+        res.render("userSetUp", {title: "User Set Up", errors: {}});
     }
 });
 
@@ -28,6 +29,11 @@ router.post("/", async (req, res) => {
         county: req.body.county,
         postCode: req.body.postCode,
         country: req.body.country
+    }
+    let errors = await validate({}, "phoneNumber", phoneNumber, -1);
+    if (Object.keys(errors).length !== 0) {
+        res.render("userSetUp", {title: "User Set Up", errors: errors, bd: req.body});
+        return;
     }
 
     let newUser = await User.create({

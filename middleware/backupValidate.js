@@ -15,7 +15,7 @@ export async function validate(errors, field, fieldVal, userID) {
         console.log(userID);
         if (!checkDupe[0]._id.equals(userID)) {
             console.log("errrrrrrrrrrr");
-             errors[field] = `The ${field} you changed was taken`;
+             errors[field] = `The ${field} you entered was taken`;
              return errors;
         }
     } 

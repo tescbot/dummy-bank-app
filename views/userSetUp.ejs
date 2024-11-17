@@ -1,32 +1,63 @@
 <div class="form-group container-md border border-dark rounded m-3 p-3 mx-auto">
     <form method="post" action="/user-set-up">
         <strong>Enter Full Name</strong>
-        <input class="form-control mb-2" type="text" maxlength="50" name="fullName" required>
+        <input class="form-control mb-2" type="text" maxlength="50" name="fullName" required
+            <% if (typeof bd !== "undefined") { %> 
+                value="<%- bd.city %>"
+            <% } %>>
+            
 
         <strong>Enter Your Date of Birth</strong>
         <% let adultDate = new Date() %>
         <% adultDate.setFullYear(adultDate.getFullYear() - 18) %>
         <input class="form-control mb-2" type="date" name="dateOfBirth" 
-                    max="<%- adultDate.toISOString().split('T')[0]%>" required>
+                    max="<%- adultDate.toISOString().split('T')[0]%>" required
+                    <% if (typeof bd !== "undefined") { %>
+                        value="<%-bd.dateOfBirth %>"
+                    <% } %>>
 
         <strong>Enter Your Phonenumber</strong>
-        <input class="form-control mb-2" type="text" name="phoneNumber" required>
+        <% if (errors.phoneNumber) {%>
+            <p class="text-danger"><%- errors["phoneNumber"] %></p>
+        <% } %>
+        <input class="form-control mb-2" type="text" name="phoneNumber" required
+            <% if (typeof bd !== "undefined") { %> 
+                value="<%- bd.phoneNumber %>"
+            <% }%>>
 
         <strong>Enter Your Address</strong>
-        <input class="form-control mb-2" type="text" name="addressLine1" placeholder="address line 1" required>
-        <input class="form-control mb-2" type="text" name="addressLine2" placeholder="address line 2">
+        <input class="form-control mb-2" type="text" name="addressLine1" placeholder="address line 1" required
+            <% if (typeof bd !== "undefined") { %> 
+                value="<%- bd.addressLine1 %>"
+            <% }%>>
+        <input class="form-control mb-2" type="text" name="addressLine2" placeholder="address line 2"
+            <% if (typeof bd !== "undefined") { %> 
+                value="<%- bd.addressLine2 %>"
+            <% } %>>
 
         <strong>Enter Your City</strong>
-        <input class="form-control mb-2" type="text" name="city">
+        <input class="form-control mb-2" type="text" name="city"
+            <% if (typeof bd !== "undefined") { %>
+                 value="<%- bd.city %>"
+            <% } %>>
 
         <strong>Enter Your County / Province</strong>
-        <input class="form-control mb-2" type="text" name="county">
+        <input class="form-control mb-2" type="text" name="county"
+            <% if (typeof bd !== "undefined") { %>
+                value="<%- bd.county %>"
+            <% } %>>
 
         <strong>Enter Your Post Code / Zip Code</strong>
-        <input class="form-control mb-2" type="text" name="postCode" required>
+        <input class="form-control mb-2" type="text" name="postCode" required
+            <% if (typeof bd !== "undefined") { %>
+                value="<%- bd.postCode %>"
+            <% } %>>
 
         <strong>Enter Your Country</strong>
-        <input class="form-control mb-2" type="text" name="country" required>
+        <input class="form-control mb-2" type="text" name="country" required
+            <% if (typeof bd !== "undefined") { %> 
+                value="<%- bd.country %>"
+            <% } %>>
 
         <input class="btn btn-primary" type="submit" value="Finish">
     </form>
