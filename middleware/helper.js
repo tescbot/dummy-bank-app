@@ -24,7 +24,5 @@ export async function getPayedBefore(user){
     for(let item of payedBeforeStringifiedSet){
         payedBeforeReturn.push(JSON.parse(item));
     }
-
-    console.log(payedBeforeReturn);
     return payedBeforeReturn;
 }
