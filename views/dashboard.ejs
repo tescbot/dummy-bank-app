@@ -18,7 +18,15 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %>
           >
         </div>
         <div>
-          <h1>£<%- moneyFormatter.format(account.money) %></h1>
+          <h1>
+            £<%- moneyFormatter.format(account.money) %>
+            <% console.log(account) %>
+            <% if (account.interest) { %>
+            <span class="h6">
+              (<%- ((account.interest.apr - 1) * 100).toFixed(1) %>% APR)
+            </span>
+            <% } %>
+          </h1>
           <a
             class="btn btn-primary"
             href="/transaction/<%-account.sortCode%>/<%-account._id%>"

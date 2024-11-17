@@ -1,30 +1,53 @@
 import express from "express";
-import { Account } from "../models/account.js";
-import { authWithSession } from "../middleware/requestHandlers.js"
-import pkg from "express-openid-connect";
-const { requiresAuth } = pkg;
+import { Account, Frequency } from "../models/account.js";
+import { authWithSession } from "../middleware/requestHandlers.js";
 
 export const path = "/add-account";
 export const router = express.Router();
 
-router.get("/", authWithSession(),(req, res) => {
-        res.render("addAccount");
+const accountTypes = {
+  current: { name: "Current Account" },
+  savings: {
+    name: "Savings Account",
+    interest: {
+      apr: 1.02,
+      frequency: Frequency.monthly,
+    },
+  },
+  bonus: {
+    name: "Bonus Savings Account",
+    interest: {
+      apr: 1.04,
+      frequency: Frequency.monthly,
+    },
+  },
+};
+
+router.get("/", authWithSession(), (req, res) => {
+  res.render("addAccount", { accountTypes });
 });
 
-router.post("/", authWithSession(), async (req, res) =>{
-    let accountName = req.body.accountName;
-    console.log(req.session.userInfo);
+router.post("/", authWithSession(), async (req, res) => {
+  let accountName = req.body.accountName;
+  let accountType = accountTypes[req.body.accountType];
 
-    let accountExists = await Account.exists({userId: req.session.userInfo._id, name: accountName});
+  let accountExists = await Account.exists({
+    userId: req.session.userInfo._id,
+    name: accountName,
+  });
 
-    if(accountExists){
-        res.render("addAccount", {msg: "Sorry you seem to already have an account with that name"});
-        return;
-    }
-    
-    await Account.create({
-        name: accountName,
-        userId: req.session.userInfo._id
+  if (accountExists) {
+    res.render("addAccount", {
+      msg: "Sorry you already have an account with that name",
+      accountTypes,
     });
-    res.redirect("/dashboard");
+    return;
+  }
+
+  await Account.create({
+    name: accountName,
+    userId: req.session.userInfo._id,
+    interest: accountType.interest,
+  });
+  res.redirect("/dashboard");
 });
