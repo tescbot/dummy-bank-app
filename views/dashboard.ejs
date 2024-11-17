@@ -13,7 +13,7 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %> <% const dateFormatter
       <div class="p-3 bg-light border">
         <div class="d-inline-flex gap-3 justify-content-between">
           <strong><%- account.name %></strong>
-          <span class="text-muted"
+          <span class="text-muted" style="white-space: nowrap"
             ><%- account._id.match(/.{1,4}/g).join(" ") %></span
           >
           <span class="text-muted"
@@ -45,7 +45,9 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %> <% const dateFormatter
               <%- dateFormatter.format(transaction.createdAt) %>
             </td> -->
             <td><%- transaction.recipient.name %></td>
-            <td class="text-muted"><%- transaction.reference %></td>
+            <td class="text-muted" style="white-space: nowrap">
+              <%- transaction.reference %>
+            </td>
             <td class="text-danger">
               - £<%- moneyFormatter.format(transaction.amountSent) %>
             </td>
@@ -54,7 +56,9 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %> <% const dateFormatter
               <%- dateFormatter.format(transaction.createdAt) %>
             </td> -->
             <td><%- transaction.sender.name %></td>
-            <td class="text-muted"><%- transaction.reference %></td>
+            <td class="text-muted" style="white-space: nowrap">
+              <%- transaction.reference %>
+            </td>
             <td class="text-success">
               + £<%- moneyFormatter.format(transaction.amountSent) %>
             </td>
