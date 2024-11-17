@@ -2,13 +2,32 @@ import express from "express";
 import { User } from "../models/user.js";
 import { Transaction } from "../models/transaction.js";
 import { Account } from "../models/account.js";
+import { getPayedBefore } from "../middleware/helper.js";
+import { authWithSession } from "../middleware/requestHandlers.js";
 
 export const path = "/transaction";
 export const router = express.Router();
 
-router.get("/:sortCode/:accountNumber", (req, res) => {
+router.get("/:sortCode/:accountNumber", authWithSession(), async (req, res) => {
+  let destSortCode = "";
+  let destAccountNumber = "";
+  let name = "";
+
+  if(req.query){
+    destSortCode = req.query.destSortCode;
+    destAccountNumber = req.query.destAccountNumber;
+    name = req.query.recipientName;
+  }
+
+  let payedBefore = await getPayedBefore(await User.findById(req.session.userInfo._id));
+
   res.render("transactionForm", {sourceSortCode: req.params.sortCode,
-     sourceAccountNumber: req.params.accountNumber, title: "Move money"});
+     sourceAccountNumber: req.params.accountNumber,
+     recipientSortCode: destSortCode,
+     recipientAccountNumber: destAccountNumber,
+     recipientName: name,
+     payedBefore: payedBefore,
+     title: "Move money"});
 });
 
 router.post("/", async (req, res) => {
