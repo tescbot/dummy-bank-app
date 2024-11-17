@@ -19,12 +19,16 @@ minimumFractionDigits: 2, maximumFractionDigits: 2 }); %>
         </div>
         <div>
           <h1>£<%- moneyFormatter.format(account.money) %></h1>
-          <a class="btn btn-primary" href="/transaction/<%-account.sortCode%>/<%-account._id%>">move money</a>
+          <a
+            class="btn btn-primary"
+            href="/transaction/<%-account.sortCode%>/<%-account._id%>"
+            >move money</a
+          >
         </div>
       </div>
       <div class="flex-grow-1 border w-100">
         <table class="w-100 table table-striped">
-          <% for (const transaction of transactions[account._id]) { %>
+          <% for (const transaction of transactions[account._id].reverse()) { %>
           <tr>
             <% if (transaction.sender._id == account._id) { %>
             <td><%- transaction.recipient.name %></td>
