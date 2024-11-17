@@ -3,54 +3,65 @@
 <div class="container-lg">
     <h1>Personal Details</h1>
     <div class="form-group container-sm">
-        <form method="post" action="/settings">
+        <% if (changeDetails) { %>
+            <form method="post" action="/settings/change-details">
+                <strong>Home Address</strong>
+                <input class="form-control mb-1 hide" type="text" name="addressLine1" placeholder="address line 1"  required
+                    value="<%- userInfo.address.line1 %>">
+                <input class="form-control mb-2 hide" type="text" name="addressLine2" placeholder="address line 2" 
+                    value="<% userInfo.address.line2 %>">
+
+                <strong>City</strong>
+                <input class="form-control mb-2 hide" type="text" name="city" 
+                    value="<%- userInfo.address.city %>">
+
+                <strong>County / Province</strong>
+                <input class="form-control mb-2 hide" type="text" name="county"            
+                    value="<%- userInfo.address.county %>">
+
+                <strong>Post Code</strong>
+                <input class="form-control mb-2 hide" type="text" name="postCode"  required            
+                    value="<%- userInfo.address.postCode %>">
+
+                <strong>Country</strong>
+                <input class="form-control mb-2 hide" type="text" name="country"  required
+                value="<%- userInfo.address.country %>">
+        
+                <strong>Phone Number</strong>
+                <% if (errors.phoneNumber) {%>
+                    <p class="text-danger"><%- errors["phoneNumber"] %></p>
+                <% } %>
+                <input class="form-control mb-2 hide" type="text" name="phoneNumber"  required            
+                    value="<%- userInfo.phoneNumber %>">
+
+                <button class="btn btn-primary hide" type="submit">Submit</button>
+            </form>
+        <% } else { %>
             <strong>Home Address</strong>
-            <input class="form-control mb-1 hide" type="text" name="addressLine1" placeholder="address line 1"  required
-                value="<%- userInfo.address.line1 %>">
-            <input class="form-control mb-2 hide" type="text" name="addressLine2" placeholder="address line 2" 
-                value="<% userInfo.address.line2 %>">
             <p class="data-display"><%- userInfo.address.line1 %></p>
             <p class="data-display"><%- userInfo.address.line2 %></p>
 
             <strong>City</strong>
-            <input class="form-control mb-2 hide" type="text" name="city" 
-                value="<%- userInfo.address.city %>">
             <p class="data-display"><%- userInfo.address.city %></p>
 
-
             <strong>County / Province</strong>
-            <input class="form-control mb-2 hide" type="text" name="county"            
-                value="<%- userInfo.address.county %>">
             <p class="data-display"><%- userInfo.address.county %></p>
 
-
             <strong>Post Code</strong>
-            <input class="form-control mb-2 hide" type="text" name="postCode"  required            
-                value="<%- userInfo.address.postCode %>">
             <p class="data-display"><%- userInfo.address.postCode %></p>
 
-
             <strong>Country</strong>
-            <input class="form-control mb-2 hide" type="text" name="country"  required
-                value="<%- userInfo.address.country %>">
             <p class="data-display"><%- userInfo.address.country %></p>
 
             <strong>Phone Number</strong>
-            <input class="form-control mb-2 hide" type="text" name="phoneNumber"  required            
-                value="<%- userInfo.phoneNumber %>">
             <p class="data-display"><%- userInfo.phoneNumber %></p>
-
-            <strong>Email Address</strong>
-            <input class="form-control mb-1 hide" type="text" name="email"  required 
-                value="<%- userInfo.email %>">
-            <p class="data-display"><%- userInfo.email %></p>
-
-            <button class="btn btn-primary" id="toggleForm">Edit</button>
-
-            <button class="btn btn-primary hide" type="submit" id="updateDetails">Submit</button>
+            
+            <form method="post" action="/settings/show-details">
+                <button class="btn btn-primary">Edit</button>
+            </form>
+        <% } %>
 
             <a class="btn btn-secondary" href="/dashboard">Dashboard</a>        
-        </form>
     </div>
 
     <script src="/js/interactiveSettings.js"></script>
