@@ -10,6 +10,7 @@
       maxlength="50"
       name="fullName"
       placeholder="Full name"
+      value="<%- recipientName %>"
       required
     />
 
@@ -19,6 +20,7 @@
       type="text"
       name="accountNumber"
       placeholder="account-number"
+      value="<%- recipientAccountNumber %>"
       required
     />
 
@@ -28,6 +30,7 @@
       type="text"
       name="sortCode"
       placeholder="sort-code"
+      value="<%- recipientSortCode %>"
       required
     />
 
@@ -55,3 +58,24 @@
     <input class="btn btn-primary" type="submit" value="send money" />
   </form>
 </div>
+<h1 class="p-5 text-center bg-body-tertiary">Send money to someone you have payed before</h1>
+<table class="container table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>sort-code</th>
+            <th>account-number</th>
+            <th>send money</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% for(let item of payedBefore){ %>
+            <tr>
+                <td><%- item.name %></td>
+                <td><%- item.sortCode %></td>
+                <td><%- item.accountNumber %></td>
+                <td><a class="btn btn-primary" href="/transaction/<%- sourceSortCode %>/<%- sourceAccountNumber %>?destSortCode=<%- item.sortCode %>&destAccountNumber=<%- item.accountNumber %>&recipientName=<%- item.name %>">send money</a></td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
